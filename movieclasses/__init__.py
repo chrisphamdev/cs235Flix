@@ -12,7 +12,7 @@ def create_app(test_config=None):
     app.config['SECRET_KEY'] = 'uJsLNNHaLOS2NyKFhfTQryGFSITaeMRq'
 
     # obtain the data from the movies dataset
-    all_movies, all_actors, all_genres, all_directors = get_movies('movieclasses\Data1000Movies.csv')
+    all_movies, all_actors, all_genres, all_directors = get_movies('movieclasses/Data1000Movies.csv')
     movies = movies_dict(all_movies)
 
 
