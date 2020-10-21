@@ -9,10 +9,13 @@ from movieclasses.forms import *
 def create_app(test_config=None):
     """Construct the core application."""
     app = Flask(__name__)
+
+    # This dictionary will store all username on register, with username as key and User object as values
+    user_database = {}
     app.config['SECRET_KEY'] = 'uJsLNNHaLOS2NyKFhfTQryGFSITaeMRq'
 
     # obtain the data from the movies dataset
-    all_movies, all_actors, all_genres, all_directors = get_movies('movieclasses\Data1000Movies.csv')
+    all_movies, all_actors, all_genres, all_directors = get_movies('movieclasses/Data1000Movies.csv')
     movies = movies_dict(all_movies)
 
 
@@ -29,13 +32,31 @@ def create_app(test_config=None):
     def register():
         form = RegistrationForm()
         if form.validate_on_submit():
+            # Success message if account is sucessfully created
             flash(f'{form.username.data}\'s account created', 'success')
+            # Create an user instance
+            user = User(form.username.data, form.password.data)
+            user_database[form.username.data]= user
+            # Redirect to home page on success
             return redirect(url_for('home'))
         return render_template('register.html', form=form)
 
-    @app.route('/login') 
+    @app.route("/login", methods=['GET', 'POST'])
     def login():
         form = LoginForm()
-        return render_template('login.html', form=form)
+        if form.validate_on_submit():
+            if form.username.data in user_database:
+                if form.password.data == user_database[form.username.data].password:
+                    flash('You have been logged in!', 'success')
+                    return redirect(url_for('home'))
+                else:
+                    flash('Login unsuccessful, please check credentials.', 'danger')
+            else:
+                flash('Login unsuccessful, please check credentials.', 'danger')
+        return render_template('login.html', title='Login', form=form)
+    
+    @app.route("/browse")
+    def browse_movie():
+        
         
     return app
