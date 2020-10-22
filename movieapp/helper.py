@@ -2,9 +2,8 @@ import os
 import sys
 from flask import Flask, render_template, url_for, flash, redirect
 
-from movieclasses.movieobjects.classes import * #Actor, Director, Genre, Movie, MovieFileCSVReader, User, Review
-from movieclasses.get_movies import *
-from movieclasses.forms import *
+from movieapp.movieobjects.classes import * #Actor, Director, Genre, Movie, MovieFileCSVReader, User, Review
+from movieapp.forms import *
 
 
 def moviefinder(actors: list, all_movies: list):
