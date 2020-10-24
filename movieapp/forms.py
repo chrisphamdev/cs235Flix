@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from movieapp import user_database
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
@@ -9,8 +10,9 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
-        if True:
-            raise ValidationError
+        taken = username.data in user_database
+        if taken:
+            raise ValidationError('Username has already been taken.')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
