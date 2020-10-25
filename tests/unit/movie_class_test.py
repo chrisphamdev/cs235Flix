@@ -12,3 +12,15 @@ def test_actor():
 
 def test_director():
     director1 = Director("Trevor")
+    director2 = Director("Michael")
+    assert director1 != director2
+
+def test_genre():
+    action = Genre("Action")
+    thriller = Genre("Thriller")
+    assert action != thriller
+
+def test_movie():
+    movie1 = Movie("Movie Sample 1", 2012)
+    movie2 = Movie("Movie Sample 2", 2020)
+    assert movie1 < movie2
