@@ -278,6 +278,7 @@ class MovieFileCSVReader:
                         self.dataset_of_actors += [a]
                 movie_obj.director = director
                 movie_obj.runtime_minutes = runtime
+                movie_obj.description = description
 
                 self.dataset_of_movies += [movie_obj]
                 if director not in self.dataset_of_directors:

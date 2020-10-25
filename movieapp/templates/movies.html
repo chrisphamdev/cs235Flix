@@ -8,8 +8,15 @@
                 <a class="mr-2" href="#">{{ movie.director }}</a>
                 <small class="text-muted">{{ movie.year }}</small>
             </div>
-            <h2><a class="article-title" href="#">{{ movie.title }}</a></h2>
-            <p class="article-content">{{ movie.actors }}</p>
+                <h2>
+                    <a class="article-title" href="#">
+                        {{ movie.title }}
+                    </a>
+                </h2>
+                <p class="article-content"> {{ movie.description }} </p> </p>
+                <p>
+                <font size="2">Cast: {{ movie.actors }}</font>
+                </p>
             </div>
         </article>
     {% endfor %}

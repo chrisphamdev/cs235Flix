@@ -29,11 +29,18 @@ def home():
 def movies_page():
     return render_template('movies.html', movies=movies)
 
+# @app.route('/movies/<int:year>/<str:movie_name>')
+# def seperated_movie_page(year, movie_name):
+#     movie = Movie('None', 1990)
+#     for elm in all_movies:
+#         if elm.year == year and elm.title == movie_name:
+#             movie = elm
+#             break
+#     return render_template('moviepage.html', movie=movie)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     # redirect back to home page if user has already logged in
-
     form = RegistrationForm()
     if form.validate_on_submit():
         # Success message if account is sucessfully created
@@ -53,7 +60,6 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     # redirect back to home page if user has already logged im
-
     form = LoginForm()
     if form.validate_on_submit():
         if form.username.data in user_database:
@@ -78,4 +84,30 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    return render_template('account.html', title='Account')
+    return render_template('account.html')
+
+
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    form = SearchForm()
+    output = []
+    if form.validate_on_submit():
+        invalid_actor = False
+        all_actors_names = form.actors.data.split(',')
+        search_by_actors = []
+        for name in all_actors_names:
+            name = name.strip()
+            search_by_actors += [Actor(name)]
+        for actor in search_by_actors:
+            if actor not in all_actors:
+                invalid_actor = True
+                break
+        if invalid_actor == False:
+            output = moviefinder(search_by_actors, all_movies)
+            output = movies_dict(output)
+            return render_template('movies.html', movies=output)
+        else:
+            flash('Invalid input, please try again.')
+
+        
+    return render_template('search.html', form=form)

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <article class="media content-section">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ movie.director }}</a>
+            <small class="text-muted">{{ movie.year }}</small>
+        </div>
+            <h2>
+                <a class="article-title" href=" {{ url_for('seperated_movie_page', year=movie.year, movie_name=movie.title">
+                    {{ movie.title }}
+                </a>
+            </h2>
+            <p class="article-content"> {{ movie.description }} </p> </p>
+            <p>
+            <font size="2">Cast: {{ movie.actors }}</font>
+            </p>
+    </article>
+{% endblock content %} 
