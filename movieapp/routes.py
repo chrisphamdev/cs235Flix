@@ -9,8 +9,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from movieapp.models import User, Review
 
 # obtain the data from the movies dataset
-# change path to 'movieapp\database\Data1000Movies.csv'
-sample_data_path = os.path.join()
+# change path to 'movieapp\database\Data1000Movies.csv' for windows
 all_movies, all_actors, all_genres, all_directors = get_movies('movieapp/database/Data1000Movies.csv')
 movies = movies_dict(all_movies)
 
