@@ -9,6 +9,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 from movieapp.models import User, Review
 
 # obtain the data from the movies dataset
+# change path to 'movieapp\database\Data1000Movies.csv'
+sample_data_path = os.path.join()
 all_movies, all_actors, all_genres, all_directors = get_movies('movieapp/database/Data1000Movies.csv')
 movies = movies_dict(all_movies)
 
@@ -29,14 +31,6 @@ def home():
 def movies_page():
     return render_template('movies.html', movies=movies)
 
-# @app.route('/movies/<int:year>/<str:movie_name>')
-# def seperated_movie_page(year, movie_name):
-#     movie = Movie('None', 1990)
-#     for elm in all_movies:
-#         if elm.year == year and elm.title == movie_name:
-#             movie = elm
-#             break
-#     return render_template('moviepage.html', movie=movie)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
